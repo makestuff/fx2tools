@@ -87,13 +87,14 @@ FX2Status fx2ReadEEPROM(uint16 vid, uint16 pid, uint32 numBytes, Buffer *i2cBuff
 	FX2Status status;
 	UsbDeviceHandle *deviceHandle;
 	uint16 address = 0x0000;
-	uint8 *bufPtr = i2cBuffer->data;
+	uint8 *bufPtr;
 	int returnCode;
 	if ( bufAppendZeros(i2cBuffer, numBytes, NULL) ) {
 		snprintf(fx2ErrorMessage, FX2_ERR_MAXLENGTH, "%s\n", bufStrError());
 		status = FX2_BUFERR;
 		goto exit;
 	}
+	bufPtr = i2cBuffer->data;
 	usbInitialise();
 	if ( usbOpenDevice(vid, pid, 1, 0, 0, &deviceHandle) ) {
 		snprintf(fx2ErrorMessage, FX2_ERR_MAXLENGTH, "%s\n", usbStrError());
