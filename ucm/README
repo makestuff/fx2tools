@@ -1,0 +1,24 @@
+Using the EEPROM write command 0xA2:
+    To write data to EP0:
+        cat f.dat | sudo ucm OUT 0xA2 0x0000 0x0000 0x1000
+    To read data from EP0:
+        sudo ucm IN 0xA2 0x0000 0x0000 0x1000 > g.dat
+
+A simpler example uses the calculator command:
+
+    sudo ucm IN 0x80 0x0010 0x0002 0x0008 | hxd
+    00000000 12 00 0E 00 20 00 08 00                         .... ...
+
+Here the results are the four arithmetic operations on the wValue and wIndex words:
+
+    Request:
+        wValue = 0x0010
+        wIndex = 0x0002
+
+    Response:
+        Sum:        0x0012 = 0x0010 + 0x0002
+        Difference: 0x000E = 0x0010 - 0x0002
+        Product:    0x0020 = 0x0010 * 0x0002
+        Quotient:   0x0008 = 0x0010 / 0x0002
+
+(remember the FX2 uses little-endian byte ordering)

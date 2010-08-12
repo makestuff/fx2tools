@@ -1,0 +1,44 @@
+#
+# Copyright (C) 2009-2010 Chris McClelland
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+all: \
+		../../3rd/fx2lib \
+		../../libs/argtypes \
+		../../libs/buffer \
+		../../libs/dump \
+		../../libs/usbwrap
+	make -f Makefile.linux -C ../../libs/argtypes
+	make -f Makefile.linux -C ../../libs/buffer
+	make -f Makefile.linux -C ../../libs/dump
+	make -C ../../3rd/fx2lib
+	make -f Makefile.linux -C ../../libs/usbwrap
+	make -f Makefile.linux -C lib
+	make -f Makefile.linux -C fx2loader
+	make -f Makefile.linux -C hxd
+	make -f Makefile.linux -C ucm
+	make -C firmware
+
+-include Makefile.common
+
+clean: FORCE
+	rm -f drivers/libusb0*
+	make -f Makefile.linux -C lib clean
+	make -f Makefile.linux -C fx2loader clean
+	make -f Makefile.linux -C hxd clean
+	make -f Makefile.linux -C ucm clean
+	make -C firmware clean
+
+FORCE:

@@ -1,0 +1,63 @@
+#
+# Copyright (C) 2009-2010 Chris McClelland
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+LIBUSB_VERSION = 0.1.12.2
+LIBUSB_HOME = ../../3rd/libusb-win32-device-bin-$(LIBUSB_VERSION)
+
+all: \
+		../../3rd/fx2lib \
+		../../libs/argtypes \
+		../../libs/buffer \
+		../../libs/dump \
+		../../libs/usbwrap \
+		$(UNZIP_HOME) \
+		$(LIBUSB_HOME) \
+		drivers/libusb0.dll
+	make -f Makefile.win32 -C ../../libs/argtypes
+	make -f Makefile.win32 -C ../../libs/buffer
+	make -f Makefile.win32 -C ../../libs/dump
+	make -C ../../3rd/fx2lib
+	make -f Makefile.win32 -C ../../libs/usbwrap
+	make -f Makefile.win32 -C lib
+	make -f Makefile.win32 -C fx2loader
+	make -f Makefile.win32 -C hxd
+	make -f Makefile.win32 -C ucm
+	make -C firmware
+
+-include Makefile.common
+
+$(LIBUSB_HOME):
+	wget 'http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/$(LIBUSB_VERSION)/libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz'
+	tar xvzf libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz
+	rm libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz
+	mkdir -p ../../3rd
+	mv libusb-win32-device-bin-$(LIBUSB_VERSION) ../../3rd/
+
+drivers/libusb0.dll:
+	cp $(LIBUSB_HOME)/bin/libusb0.dll drivers/
+	cp $(LIBUSB_HOME)/bin/libusb0.sys drivers/
+	cp $(LIBUSB_HOME)/bin/libusb0_x64.dll drivers/
+	cp $(LIBUSB_HOME)/bin/libusb0_x64.sys drivers/
+
+clean: FORCE
+	rm -f drivers/libusb0*
+	make -f Makefile.win32 -C lib clean
+	make -f Makefile.win32 -C fx2loader clean
+	make -f Makefile.win32 -C hxd clean
+	make -f Makefile.win32 -C ucm clean
+	make -C firmware clean
+
+FORCE:

@@ -1,0 +1,8 @@
+ loading and interacting with the Cypress FX2LP Hi-Speed USB micro.
+
+    fx2loader - load I8HEX files from SDCC directly into RAM or EEPROM
+    ucm - send a USB control message to the FX2LP
+    hxd - simple little hex dump program
+    firmware - a simple example firmware
+
+The build works on Linux and Windows.
