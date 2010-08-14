@@ -23,7 +23,13 @@
 
 .module DEV_DSCR 
 
-.include "ids.inc"
+; for Digilent Nexys2
+VID=0x1443
+PID=0x0005
+
+; for default FX2LP chip
+;VID=0x04B4
+;PID=0x8613
 
 ; descriptor types
 ; same as setupdat.h
