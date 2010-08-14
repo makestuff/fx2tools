@@ -15,7 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 all: \
-		../../3rd/fx2lib \
 		../../libs/argtypes \
 		../../libs/buffer \
 		../../libs/dump \
@@ -23,13 +22,12 @@ all: \
 	make -f Makefile.linux -C ../../libs/argtypes
 	make -f Makefile.linux -C ../../libs/buffer
 	make -f Makefile.linux -C ../../libs/dump
-	make -C ../../3rd/fx2lib
 	make -f Makefile.linux -C ../../libs/usbwrap
 	make -f Makefile.linux -C lib
 	make -f Makefile.linux -C fx2loader
 	make -f Makefile.linux -C hxd
 	make -f Makefile.linux -C ucm
-	make -C firmware
+	make -f Makefile.linux -C bulk
 
 -include Makefile.common
 
@@ -39,6 +37,5 @@ clean: FORCE
 	make -f Makefile.linux -C fx2loader clean
 	make -f Makefile.linux -C hxd clean
 	make -f Makefile.linux -C ucm clean
+	make -f Makefile.linux -C bulk clean
 	make -C firmware clean
-
-FORCE:

@@ -1,0 +1,10 @@
+Write data from a file to a bulk endpoint
+
+$ dd if=/dev/urandom of=random.dat bs=1024 count=1024
+1024+0 records in
+1024+0 records out
+1048576 bytes (1.0 MB) copied, 0.640195 s, 1.6 MB/s
+
+$ sudo bulk/bulk -c -b -e 6 random.dat
+Checksum: 0x4269
+Speed: 24.541082 MB/s

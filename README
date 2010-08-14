@@ -5,4 +5,26 @@ Tools for loading code and interacting with the Cypress FX2LP Hi-Speed USB micro
     hxd - simple little hex dump program
     firmware - a simple example firmware
 
-The build works on Linux and Windows.
+The project build assumes a directory structure like this:
+
+src
+|
++-apps
+| |
+| +-fx2tools
+|
++-libs
+|
++-3rd
+
+*** BUILDING ON WINDOWS ***
+
+make -f Makefile.win32 clean    # clean up
+make -f Makefile.win32          # build host-side stuff
+make -f Makefile.win32 firmware # build firmware
+
+*** BUILDING ON LINUX ***
+
+make -f Makefile.linux clean    # clean up
+make -f Makefile.linux          # build host-side stuff
+make -f Makefile.linux firmware # build firmware

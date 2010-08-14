@@ -41,7 +41,7 @@ extern "C" {
 	FX2Status fx2ReadEEPROM(uint16 vid, uint16 pid, uint32 numBytes, Buffer *i2cBuffer);
 
 	#ifdef FX2LOADER_PRIVATE
-		#define FX2_ERR_MAXLENGTH 256
+		#define FX2_ERR_MAXLENGTH 1024
 	#endif
 
 #ifdef __cplusplus

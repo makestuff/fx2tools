@@ -29,8 +29,6 @@
 #define bmBULK bmBIT5
 #define bmDOUBLEBUFFERED bmBIT1
 #define bmSKIP bmBIT7
-#define bmEP6FF bmBIT0
-#define bmEP6EF bmBIT1
 
 #define bmDYN_OUT (1<<1)
 #define bmENH_PKT (1<<0)
@@ -38,13 +36,9 @@
 BYTE currentConfiguration;  // Current configuration
 BYTE alternateSetting = 0;  // Alternate settings
 
-BYTE statusBuffer[64];
-BYTE sendFlag;
-
 // Called once at startup
 //
 void main_init(void) {
-	BYTE i;
 	CPUCS = bmCLKSPD1;  // 48MHz
 	SYNCDELAY();
 	IFCONFIG = (bmIFCLKSRC | bm3048MHZ | bmIFCLKOE | bmSYNCFIFOS);  // drive IFCLK with internal 30MHz clock, select synchronous FIFOs
@@ -63,55 +57,13 @@ void main_init(void) {
 	SYNCDELAY();
 	OUTPKTEND = bmSKIP | 6;
 	SYNCDELAY();
-	//EP6FIFOCFG = bmAUTOOUT;
-	EP6FIFOCFG = 0x00;
+	EP6FIFOCFG = bmAUTOOUT;
 	SYNCDELAY();
-	for ( i = 0; i < 64; i++ ) {
-		statusBuffer[i] = 0x00;
-	}
-	sendFlag = 0x00;
 }
 
 // Called repeatedly while the device is idle
 //
-void main_loop(void) {
-	if ( !(EP2468STAT & 0x10) ) {
-		const BYTE count = (EP6BCH || EP6BCL >= 64) ? 64 : EP6BCL;
-		BYTE i;
-		for ( i = 0; i < count; i++ ) {
-			statusBuffer[i] = EP6FIFOBUF[i];
-		}
-		OUTPKTEND = 0x06;
-	}
-
-/*	if ( !(EP2468STAT & 0x10) || sendFlag ) {
-		BYTE low = EP6BCL, high = EP6BCH;
-		BYTE offset = statusBuffer[0];
-		if ( sendFlag > 0 ) {
-			sendFlag--;
-		}
-		statusBuffer[2*offset+1] = EP6BCH;
-		statusBuffer[2*offset+2] = EP6BCL;
-		statusBuffer[0] = offset + 1;
-		SYNCDELAY();
-		FIFORESET = bmNAKALL;
-		SYNCDELAY();
-		FIFORESET = bmNAKALL | 6;  // reset EP6
-		SYNCDELAY();
-		//if ( pktCount > 2 ) {
-		//EP6FIFOBUF[0] = 0xAA;
-		//}
-		//SYNCDELAY();
-		EP6BCH = high;
-		SYNCDELAY();
-		EP6BCL = low;
-		SYNCDELAY();
-		OUTPKTEND = 0x86;
-		SYNCDELAY();
-		FIFORESET = 0x00;
-	}
-*/
-}
+void main_loop(void) { }
 
 // Called when a Set Configuration command is received
 //
@@ -154,25 +106,6 @@ BOOL handle_vendorcommand(BYTE cmd) {
 			EP0BCH = 0;
 			SYNCDELAY();
 			EP0BCL = 8;
-			SYNCDELAY();
-		} else {
-			// This command does not support OUT operations
-			//
-			return FALSE;
-		}
-		break;
-	case 0x81:
-		if ( SETUP_TYPE == 0xc0 ) {
-			BYTE i;
-			while ( EP0CS & bmEPBUSY );
-			for ( i = 0; i < 64; i++ ) {
-				EP0BUF[i] = statusBuffer[i];
-			}
-			EP0BCH = 0;
-			SYNCDELAY();
-			EP0BCL = 64;
-			SYNCDELAY();
-			sendFlag = 0x02;
 		} else {
 			// This command does not support OUT operations
 			//
@@ -403,7 +336,7 @@ BOOL promWrite(WORD addr, BYTE length, const BYTE xdata *buf) {
 		if ( promWaitForDone() ) {
 			return 1;
 		}
-	}
+    }
 	I2CS |= bmSTOP;
 
 	// Wait for I2C idle

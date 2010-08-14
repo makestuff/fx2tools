@@ -152,7 +152,7 @@ int main(int argc, char* argv[]) {
 	usbInitialise();
 	returnCode = usbOpenDevice(vid, pid, 1, 0, 0, &deviceHandle);
 	if ( returnCode ) {
-		fprintf(stderr, "%s\n", usbStrError());
+		fprintf(stderr, "usbOpenDevice() failed: %s\n", usbStrError());
 		exitCode = 9;
 		goto cleanupOutFile;
 	}
@@ -163,7 +163,7 @@ int main(int argc, char* argv[]) {
 	);
 	if ( isOut ) {
 		if ( returnCode != wLength ) {
-			fprintf(stderr, "Expected to write 0x%04X bytes but actually wrote 0x%04X\n", wLength, returnCode);
+			fprintf(stderr, "Expected to write 0x%04X bytes but actually wrote 0x%04X: %s\n", wLength, returnCode, usb_strerror());
 			exitCode = 10;
 			goto cleanupUsb;
 		}

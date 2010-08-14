@@ -99,7 +99,7 @@ FX2Status fx2ReadEEPROM(uint16 vid, uint16 pid, uint32 numBytes, Buffer *i2cBuff
 	if ( usbOpenDevice(vid, pid, 1, 0, 0, &deviceHandle) ) {
 		snprintf(fx2ErrorMessage, FX2_ERR_MAXLENGTH, "%s\n", usbStrError());
 		status = FX2_USBERR;
-		goto cleanup;
+		goto exit;
 	}
 	usb_clear_halt(deviceHandle, 2);
 	while ( numBytes > BLOCK_SIZE ) {
@@ -119,7 +119,7 @@ FX2Status fx2ReadEEPROM(uint16 vid, uint16 pid, uint32 numBytes, Buffer *i2cBuff
 	}
 	returnCode = usb_control_msg(
 		deviceHandle,
-		(USB_ENDPOINT_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE),
+		(USB_ENDPOINT_IN | USB_TYPE_VENDOR | USB_RECIP_DEVICE),
 		0xA2, address, 0x0000, (char*)bufPtr, numBytes, 5000
 	);
 	if ( returnCode != (int)numBytes ) {

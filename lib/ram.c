@@ -21,7 +21,7 @@
 
 #ifdef WIN32
 #pragma warning(disable : 4996)
-#define snprintf sprintf_s 
+#define snprintf sprintf_s
 #endif
 
 extern char fx2ErrorMessage[];
@@ -89,8 +89,6 @@ FX2Status fx2WriteRAM(uint16 vid, uint16 pid, const Buffer *sourceData) {
 		status = FX2_USBERR;
 		goto cleanupUsb;
 	}
-
-	printf("Wrote %lu bytes to FX2's RAM\n", sourceData->length);
 
 	status = FX2_SUCCESS;
 

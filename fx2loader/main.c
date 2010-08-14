@@ -46,13 +46,13 @@ typedef enum {
 
 int main(int argc, char *argv[]) {
 
-	struct arg_str *srcOpt = arg_str1("s", "src", "<eeprom|fileName.hex|fileName.bix|fileName.iic>", "     where to read from");
-	struct arg_str *dstOpt = arg_str0("d", "dst", "<ram|eeprom|fileName.hex|fileName.bix|fileName.iic>", " where to write to (default ram)");
-	struct arg_uint *vidOpt = arg_uint0("v", "vid", "<vendorID>", "                                          vendor ID");
-	struct arg_uint *pidOpt = arg_uint0("p", "pid", "<productID>", "                                         product ID");
-	struct arg_lit *helpOpt  = arg_lit0("h", "help", "                                                    print this help and exit");
+	struct arg_uint *vidOpt = arg_uint0("v", "vid", "<vendorID>", "  vendor ID");
+	struct arg_uint *pidOpt = arg_uint0("p", "pid", "<productID>", " product ID");
+	struct arg_lit *helpOpt  = arg_lit0("h", "help", "            print this help and exit");
+	struct arg_str *srcOpt = arg_str1(NULL, NULL, "<source>", "            where to read from (<eeprom:<kbitSize> | fileName.hex | fileName.bix | fileName.iic>)");
+	struct arg_str *dstOpt = arg_str0(NULL, NULL, "<destination>", "         where to write to (<ram | eeprom | fileName.hex | fileName.bix | fileName.iic> - defaults to \"ram\")");
 	struct arg_end *endOpt   = arg_end(20);
-	void* argTable[] = {srcOpt, dstOpt, vidOpt, pidOpt, helpOpt, endOpt};
+	void* argTable[] = {vidOpt, pidOpt, helpOpt, srcOpt, dstOpt, endOpt};
 	const char *progName = "fx2loader";
 	uint32 exitCode = 0;
 	int numErrors;

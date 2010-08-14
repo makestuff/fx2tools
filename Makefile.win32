@@ -18,7 +18,6 @@ LIBUSB_VERSION = 0.1.12.2
 LIBUSB_HOME = ../../3rd/libusb-win32-device-bin-$(LIBUSB_VERSION)
 
 all: \
-		../../3rd/fx2lib \
 		../../libs/argtypes \
 		../../libs/buffer \
 		../../libs/dump \
@@ -29,13 +28,12 @@ all: \
 	make -f Makefile.win32 -C ../../libs/argtypes
 	make -f Makefile.win32 -C ../../libs/buffer
 	make -f Makefile.win32 -C ../../libs/dump
-	make -C ../../3rd/fx2lib
 	make -f Makefile.win32 -C ../../libs/usbwrap
 	make -f Makefile.win32 -C lib
 	make -f Makefile.win32 -C fx2loader
 	make -f Makefile.win32 -C hxd
 	make -f Makefile.win32 -C ucm
-	make -C firmware
+	make -f Makefile.win32 -C benchmark
 
 -include Makefile.common
 
@@ -58,6 +56,5 @@ clean: FORCE
 	make -f Makefile.win32 -C fx2loader clean
 	make -f Makefile.win32 -C hxd clean
 	make -f Makefile.win32 -C ucm clean
+	make -f Makefile.win32 -C benchmark clean
 	make -C firmware clean
-
-FORCE:

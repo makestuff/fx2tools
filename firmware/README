@@ -1,0 +1,6 @@
+Custom FX2LP firmware, built with SDCC
+
+This firmware is based on the examples supplied with Dennis Muhlestein's fx2lib. It reports exactly
+the same descriptors as the on-board USB firmware used by Digilent in their excellent FPGA devkits.
+
+The vendor ID and product ID of the firmware may be changed by editing the ids.inc file.

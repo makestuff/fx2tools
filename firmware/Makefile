@@ -23,8 +23,7 @@ TARGET = firmware
 FX2LIBDIR=../../../3rd/fx2lib
 LIBS = -L$(FX2LIBDIR)/lib fx2.lib
 INCS = -I sdcc -I$(FX2LIBDIR)/include
-VID=0x04b4
-PID=0x8613
+-include ids.inc
 
 CC_SRCS = $(shell ls *.c)
 AS_SRCS = $(shell ls *.a51)

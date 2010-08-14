@@ -1,15 +1,17 @@
 Using the EEPROM write command 0xA2:
-    To write data to EP0:
-        cat f.dat | sudo ucm OUT 0xA2 0x0000 0x0000 0x1000
-    To read data from EP0:
-        sudo ucm IN 0xA2 0x0000 0x0000 0x1000 > g.dat
+    To read data from the last 16 bytes of a 128kbit (16kbyte) EEPROM:
+        sudo ucm/ucm -v 0x1443 -p 0x0005 -i 0xA2 0x3ff0 0x0000 0x0010 | hxd/hxd
+        ucm\Debug\ucm.exe -v 0x1443 -p 0x0005 -i 0xA2 0x3ff0 0x0000 0x0010 | hxd\Debug\hxd.exe
+    To write data to the last 16 bytes of a 128kbit (16kbyte) EEPROM:
+        echo 0123456789ABCDEF | sudo ucm/ucm -v 0x1443 -p 0x0005 -o 0xA2 0x3ff0 0x0000 0x0010
+        echo 0123456789ABCDEF | ucm\Debug\ucm.exe -v 0x1443 -p 0x0005 -o 0xA2 0x3ff0 0x0000 0x0010
 
 A simpler example uses the calculator command:
 
-    sudo ucm IN 0x80 0x0010 0x0002 0x0008 | hxd
-    00000000 12 00 0E 00 20 00 08 00                         .... ...
+    sudo ucm/ucm -v 0x1443 -p 0x0005 -i 0x80 0x0010 0x0002 0x0008 | hxd/hxd
+    ucm\Debug\ucm -v 0x1443 -p 0x0005 -i 0x80 0x0010 0x0002 0x0008 | hxd\Debug\hxd
 
-Here the results are the four arithmetic operations on the wValue and wIndex words:
+Here the results (12 00 0E 00 20 00 08 00) are the four arithmetic operations on the wValue and wIndex words:
 
     Request:
         wValue = 0x0010

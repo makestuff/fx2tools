@@ -48,3 +48,11 @@
 	rm mulicheng-fx2lib-*.tar.gz
 	mkdir -p ../../3rd
 	mv mulicheng-fx2lib* $@
+
+firmware: \
+		../../3rd/fx2lib \
+		FORCE
+	make -C ../../3rd/fx2lib
+	make -C firmware
+
+FORCE:

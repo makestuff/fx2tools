@@ -1,0 +1,3 @@
+The Windows-only drivers for LibUSB-Win32. There are two, one for the default FX2LP firmware (i.e
+the one you get if you power the chip without an EEPROM), and one for the Digilent on-board USB
+firmware used in several of Digilent's excellent FPGA devkits.
