@@ -33,7 +33,7 @@ all: \
 	make -f Makefile.win32 -C fx2loader
 	make -f Makefile.win32 -C hxd
 	make -f Makefile.win32 -C ucm
-	make -f Makefile.win32 -C benchmark
+	make -f Makefile.win32 -C bulk
 
 -include Makefile.common
 
@@ -56,5 +56,5 @@ clean: FORCE
 	make -f Makefile.win32 -C fx2loader clean
 	make -f Makefile.win32 -C hxd clean
 	make -f Makefile.win32 -C ucm clean
-	make -f Makefile.win32 -C benchmark clean
+	make -f Makefile.win32 -C bulk clean
 	make -C firmware clean

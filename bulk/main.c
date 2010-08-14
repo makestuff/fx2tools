@@ -31,11 +31,11 @@ int main(int argc, char *argv[]) {
 
 	struct arg_uint *vidOpt  = arg_uint0("v", "vid", "<vendorID>", "  vendor ID");
 	struct arg_uint *pidOpt  = arg_uint0("p", "pid", "<productID>", " product ID");
-	struct arg_int  *epOpt   = arg_int0("e", "endpoint", "<endpoint>", " endpoint to write to");
-	struct arg_lit  *benOpt  = arg_lit0("b", "benchmark", "            benchmark the operation");
-	struct arg_lit  *chkOpt  = arg_lit0("c", "checksum", "            print 16-bit checksum");
+	struct arg_int  *epOpt   = arg_int0("e", "endpoint", "<N>", "    endpoint to write to");
+	struct arg_lit  *benOpt  = arg_lit0("b", "benchmark", "       benchmark the operation");
+	struct arg_lit  *chkOpt  = arg_lit0("c", "checksum", "        print 16-bit checksum");
 	struct arg_lit  *helpOpt = arg_lit0("h", "help", "            print this help and exit\n");
-	struct arg_file *fileOpt = arg_file1(NULL, NULL, "<data.dat>", "            the data to send");
+	struct arg_file *fileOpt = arg_file1(NULL, NULL, "<fileName>", "            the data to send");
 	struct arg_end  *endOpt  = arg_end(20);
 	void* argTable[] = {vidOpt, pidOpt, epOpt, benOpt, chkOpt, helpOpt, fileOpt, endOpt};
 	const char *progName = "bulk";

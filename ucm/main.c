@@ -28,18 +28,18 @@
 
 int main(int argc, char* argv[]) {
 
+	struct arg_uint *vidOpt = arg_uint0("v", "vid", "<vendorID>", "  vendor ID");
+	struct arg_uint *pidOpt = arg_uint0("p", "pid", "<productID>", " product ID");
 	struct arg_lit *inOpt  = arg_lit0("i", "in", "            this is an IN message (device->host)");
 	struct arg_lit *outOpt  = arg_lit0("o", "out", "            this is an OUT message (host->device)");
 	struct arg_file *fileOpt = arg_file0("f", "file", "<fileName>", " file to read from or write to (default stdin/stdout)");
-	struct arg_uint *vidOpt = arg_uint0("v", "vid", "<vendorID>", "  vendor ID");
-	struct arg_uint *pidOpt = arg_uint0("p", "pid", "<productID>", " product ID");
 	struct arg_lit *helpOpt  = arg_lit0("h", "help", "            print this help and exit\n");
 	struct arg_uint *reqOpt = arg_uint1(NULL, NULL, "<bRequest>", "            the bRequest byte");
 	struct arg_uint *valOpt = arg_uint1(NULL, NULL, "<wValue>", "            the wValue word");
 	struct arg_uint *idxOpt = arg_uint1(NULL, NULL, "<wIndex>", "            the wIndex word");
 	struct arg_uint *lenOpt = arg_uint1(NULL, NULL, "<wLength>", "            the wLength word");
 	struct arg_end *endOpt   = arg_end(20);
-	void* argTable[] = {inOpt, outOpt, fileOpt, vidOpt, pidOpt, helpOpt, reqOpt, valOpt, idxOpt, lenOpt, endOpt};
+	void* argTable[] = {vidOpt, pidOpt, inOpt, outOpt, fileOpt, helpOpt, reqOpt, valOpt, idxOpt, lenOpt, endOpt};
 	const char *progName = "ucm";
 	uint32 exitCode = 0;
 	int numErrors;
