@@ -45,7 +45,7 @@ $(OBJDIR)/%.o : %.c
 	make -C ../../3rd/UnitTest++
 
 ../../3rd/UnitTest++:
-	wget http://sourceforge.net/projects/unittest-cpp/files/UnitTest++/$(UTPP_VERSION)/unittest-cpp-$(UTPP_VERSION).zip/download
+	wget --no-check-certificate http://sourceforge.net/projects/unittest-cpp/files/UnitTest++/$(UTPP_VERSION)/unittest-cpp-$(UTPP_VERSION).zip/download
 	unzip unittest-cpp-$(UTPP_VERSION).zip
 	mkdir -p ../../3rd
 	mv UnitTest++ ../../3rd/

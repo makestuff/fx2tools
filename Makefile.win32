@@ -38,7 +38,7 @@ all: \
 -include Makefile.common
 
 $(LIBUSB_HOME):
-	wget 'http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/$(LIBUSB_VERSION)/libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz'
+	wget --no-check-certificate 'http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/$(LIBUSB_VERSION)/libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz'
 	tar xvzf libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz
 	rm libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz
 	mkdir -p ../../3rd
