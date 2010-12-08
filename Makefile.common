@@ -16,36 +16,36 @@
 #
 ../../libs/argtypes:
 	wget --no-check-certificate http://github.com/makestuff/argtypes/tarball/master
-	tar xvzf makestuff-argtypes-*.tar.gz
-	rm makestuff-argtypes-*.tar.gz
+	tar xvzf master
+	rm master
 	mkdir -p ../../libs
 	mv makestuff-argtypes* $@
 
 ../../libs/buffer:
 	wget --no-check-certificate http://github.com/makestuff/buffer/tarball/master
-	tar xvzf makestuff-buffer-*.tar.gz
-	rm makestuff-buffer-*.tar.gz
+	tar xvzf master
+	rm master
 	mkdir -p ../../libs
 	mv makestuff-buffer* $@
 
 ../../libs/dump:
 	wget --no-check-certificate http://github.com/makestuff/dump/tarball/master
-	tar xvzf makestuff-dump-*.tar.gz
-	rm makestuff-dump-*.tar.gz
+	tar xvzf master
+	rm master
 	mkdir -p ../../libs
 	mv makestuff-dump* $@
 
 ../../libs/usbwrap:
 	wget --no-check-certificate http://github.com/makestuff/usbwrap/tarball/master
-	tar xvzf makestuff-usbwrap-*.tar.gz
-	rm makestuff-usbwrap-*.tar.gz
+	tar xvzf master
+	rm master
 	mkdir -p ../../libs
 	mv makestuff-usbwrap* $@
 
 ../../3rd/fx2lib:
 	wget --no-check-certificate http://github.com/mulicheng/fx2lib/tarball/master
-	tar xvzf mulicheng-fx2lib-*.tar.gz
-	rm mulicheng-fx2lib-*.tar.gz
+	tar xvzf master
+	rm master
 	mkdir -p ../../3rd
 	mv mulicheng-fx2lib* $@
 
