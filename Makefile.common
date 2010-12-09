@@ -15,39 +15,39 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ../../libs/argtypes:
-	wget --no-check-certificate http://github.com/makestuff/argtypes/tarball/master
-	tar xvzf master
-	rm master
+	wget -O argtypes.tgz --no-check-certificate http://github.com/makestuff/argtypes/tarball/master
+	tar xvzf argtypes.tgz
+	rm argtypes.tgz
 	mkdir -p ../../libs
-	mv makestuff-argtypes* $@
+	mv makestuff-argtypes* ../../libs/argtypes
 
 ../../libs/buffer:
-	wget --no-check-certificate http://github.com/makestuff/buffer/tarball/master
-	tar xvzf master
-	rm master
+	wget -O buffer.tgz --no-check-certificate http://github.com/makestuff/buffer/tarball/master
+	tar xvzf buffer.tgz
+	rm buffer.tgz
 	mkdir -p ../../libs
-	mv makestuff-buffer* $@
+	mv makestuff-buffer* ../../libs/buffer
 
 ../../libs/dump:
-	wget --no-check-certificate http://github.com/makestuff/dump/tarball/master
-	tar xvzf master
-	rm master
+	wget -O dump.tgz --no-check-certificate http://github.com/makestuff/dump/tarball/master
+	tar xvzf dump.tgz
+	rm dump.tgz
 	mkdir -p ../../libs
-	mv makestuff-dump* $@
+	mv makestuff-dump* ../../libs/dump
 
 ../../libs/usbwrap:
-	wget --no-check-certificate http://github.com/makestuff/usbwrap/tarball/master
-	tar xvzf master
-	rm master
+	wget -O usbwrap.tgz --no-check-certificate http://github.com/makestuff/usbwrap/tarball/master
+	tar xvzf usbwrap.tgz
+	rm usbwrap.tgz
 	mkdir -p ../../libs
-	mv makestuff-usbwrap* $@
+	mv makestuff-usbwrap* ../../libs/usbwrap
 
 ../../3rd/fx2lib:
-	wget --no-check-certificate http://github.com/mulicheng/fx2lib/tarball/master
-	tar xvzf master
-	rm master
+	wget -O fx2lib.tgz --no-check-certificate http://github.com/mulicheng/fx2lib/tarball/master
+	tar xvzf fx2lib.tgz
+	rm fx2lib.tgz
 	mkdir -p ../../3rd
-	mv mulicheng-fx2lib* $@
+	mv mulicheng-fx2lib* ../../3rd/fx2lib
 
 firmware: \
 		../../3rd/fx2lib \
