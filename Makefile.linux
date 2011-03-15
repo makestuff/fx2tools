@@ -14,28 +14,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+UTPP_VERSION = 1.4
+UTPP_HOME = ../../3rd/UnitTest++
+UNZIP = unzip
+PLATFORM = linux
+
 all: \
 		../../libs/argtypes \
 		../../libs/buffer \
 		../../libs/dump \
-		../../libs/usbwrap
-	make -f Makefile.linux -C ../../libs/argtypes
-	make -f Makefile.linux -C ../../libs/buffer
-	make -f Makefile.linux -C ../../libs/dump
-	make -f Makefile.linux -C ../../libs/usbwrap
-	make -f Makefile.linux -C lib
-	make -f Makefile.linux -C fx2loader
-	make -f Makefile.linux -C hxd
-	make -f Makefile.linux -C ucm
-	make -f Makefile.linux -C bulk
+		../../libs/usbwrap \
+		$(UTPP_HOME)
+	rm -f pax_global_header
+	make -C $(UTPP_HOME)
+	make -f Makefile.$(PLATFORM) -C ../../libs/argtypes
+	make -f Makefile.$(PLATFORM) -C ../../libs/buffer
+	make -f Makefile.$(PLATFORM) -C ../../libs/dump
+	make -f Makefile.$(PLATFORM) -C ../../libs/usbwrap
+	make -f Makefile.$(PLATFORM) -C lib
+	make -f Makefile.$(PLATFORM) -C fx2loader
+	make -f Makefile.$(PLATFORM) -C hxd
+	make -f Makefile.$(PLATFORM) -C ucm
+	make -f Makefile.$(PLATFORM) -C bulk
 
 -include Makefile.common
-
-clean: FORCE
-	rm -f drivers/libusb0*
-	make -f Makefile.linux -C lib clean
-	make -f Makefile.linux -C fx2loader clean
-	make -f Makefile.linux -C hxd clean
-	make -f Makefile.linux -C ucm clean
-	make -f Makefile.linux -C bulk clean
-	make -C firmware clean

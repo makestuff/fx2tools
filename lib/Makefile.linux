@@ -15,8 +15,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 TARGET = libfx2loader.a
-UTPP_VERSION = 1.4
-UTPP_HOME = ../../3rd/UnitTest++
 
 INCLUDES = \
 	-I../../../include \
@@ -32,7 +30,7 @@ CFLAGS = -O3 -Wall -Wextra -Wstrict-prototypes -Wundef -std=c99 -pedantic-errors
 OBJDIR = .build
 DEPDIR = .deps
 
-all: $(UTPP_HOME)/libUnitTest++.a $(TARGET) tests
+all: $(TARGET) tests
 
 $(TARGET): $(CC_OBJS)
 	$(AR) cr $(TARGET) $(CC_OBJS)
@@ -41,16 +39,6 @@ $(OBJDIR)/%.o : %.c
 	$(CC) -c $(CFLAGS) -MMD -MP -MF $(DEPDIR)/$(@F).d -Wa,-adhlns=$(OBJDIR)/$<.lst $< -o $@
 
 -include Makefile.common
-
-$(UTPP_HOME)/libUnitTest++.a: $(UTPP_HOME)
-	make -C $(UTPP_HOME)
-
-$(UTPP_HOME):
-	wget -O unittest-cpp.zip --no-check-certificate http://sourceforge.net/projects/unittest-cpp/files/UnitTest++/$(UTPP_VERSION)/unittest-cpp-$(UTPP_VERSION).zip/download
-	unzip unittest-cpp.zip
-	mkdir -p ../../3rd
-	mv UnitTest++ ../../3rd/
-	rm unittest-cpp.zip
 
 clean: FORCE
 	make -C tests clean

@@ -14,8 +14,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-LIBUSB_VERSION = 0.1.12.2
-LIBUSB_HOME = ../../3rd/libusb-win32-device-bin-$(LIBUSB_VERSION)
+UTPP_VERSION = 1.4
+UTPP_HOME = ../../3rd/UnitTest++
+LIBUSB_VERSION = 1.2.2.0
+LIBUSB_HOME = ../../3rd/libusb-win32-bin-$(LIBUSB_VERSION)
+UNZIP_VERSION = 600
+UNZIP_HOME = ../../3rd/unz$(UNZIP_VERSION)
+UNZIP = $(UNZIP_HOME)/unzip.exe
+PLATFORM = win32
 
 all: \
 		../../libs/argtypes \
@@ -24,37 +30,31 @@ all: \
 		../../libs/usbwrap \
 		$(UNZIP_HOME) \
 		$(LIBUSB_HOME) \
-		drivers/libusb0.dll
-	make -f Makefile.win32 -C ../../libs/argtypes
-	make -f Makefile.win32 -C ../../libs/buffer
-	make -f Makefile.win32 -C ../../libs/dump
-	make -f Makefile.win32 -C ../../libs/usbwrap
-	make -f Makefile.win32 -C lib
-	make -f Makefile.win32 -C fx2loader
-	make -f Makefile.win32 -C hxd
-	make -f Makefile.win32 -C ucm
-	make -f Makefile.win32 -C bulk
+		$(UTPP_HOME)
+	rm -f pax_global_header
+	vcbuild /nologo /upgrade ..\\..\\3rd\\UnitTest++\\UnitTest++.vsnet2005.sln
+	make -f Makefile.$(PLATFORM) -C ../../libs/argtypes
+	make -f Makefile.$(PLATFORM) -C ../../libs/buffer
+	make -f Makefile.$(PLATFORM) -C ../../libs/dump
+	make -f Makefile.$(PLATFORM) -C ../../libs/usbwrap
+	make -f Makefile.$(PLATFORM) -C lib
+	make -f Makefile.$(PLATFORM) -C fx2loader
+	make -f Makefile.$(PLATFORM) -C hxd
+	make -f Makefile.$(PLATFORM) -C ucm
+	make -f Makefile.$(PLATFORM) -C bulk
 
 -include Makefile.common
 
-$(LIBUSB_HOME):
-	wget -O libusb-win32.tgz --no-check-certificate 'http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/$(LIBUSB_VERSION)/libusb-win32-device-bin-$(LIBUSB_VERSION).tar.gz'
-	tar xvzf libusb-win32.tgz
-	rm libusb-win32.tgz
+$(UNZIP_HOME):
+	wget ftp://ftp.info-zip.org/pub/infozip/win32/unz$(UNZIP_VERSION)xn.exe
+	mkdir unz$(UNZIP_VERSION); cd unz$(UNZIP_VERSION); ../unz$(UNZIP_VERSION)xn.exe
 	mkdir -p ../../3rd
-	mv libusb-win32-device-bin-$(LIBUSB_VERSION) ../../3rd/
+	mv unz$(UNZIP_VERSION) ../../3rd/
+	rm -rf unz$(UNZIP_VERSION)xn.exe
 
-drivers/libusb0.dll:
-	cp $(LIBUSB_HOME)/bin/libusb0.dll drivers/
-	cp $(LIBUSB_HOME)/bin/libusb0.sys drivers/
-	cp $(LIBUSB_HOME)/bin/libusb0_x64.dll drivers/
-	cp $(LIBUSB_HOME)/bin/libusb0_x64.sys drivers/
-
-clean: FORCE
-	rm -f drivers/libusb0*
-	make -f Makefile.win32 -C lib clean
-	make -f Makefile.win32 -C fx2loader clean
-	make -f Makefile.win32 -C hxd clean
-	make -f Makefile.win32 -C ucm clean
-	make -f Makefile.win32 -C bulk clean
-	make -C firmware clean
+$(LIBUSB_HOME):
+	wget -O libusb-win32.zip --no-check-certificate 'http://sourceforge.net/projects/libusb-win32/files/libusb-win32-releases/$(LIBUSB_VERSION)/libusb-win32-bin-$(LIBUSB_VERSION).zip/download'
+	$(UNZIP) libusb-win32.zip
+	rm libusb-win32.zip
+	mkdir -p ../../3rd
+	mv libusb-win32-bin-$(LIBUSB_VERSION) ../../3rd/

@@ -49,10 +49,25 @@
 	mkdir -p ../../3rd
 	mv mulicheng-fx2lib* ../../3rd/fx2lib
 
+$(UTPP_HOME):
+	wget -O unittest-cpp.zip --no-check-certificate http://sourceforge.net/projects/unittest-cpp/files/UnitTest++/$(UTPP_VERSION)/unittest-cpp-$(UTPP_VERSION).zip/download
+	$(UNZIP) unittest-cpp.zip
+	rm unittest-cpp.zip
+	mkdir -p ../../3rd
+	mv UnitTest++ ../../3rd/
+
 firmware: \
 		../../3rd/fx2lib \
 		FORCE
 	make -C ../../3rd/fx2lib
 	make -C firmware
+
+clean: FORCE
+	make -f Makefile.$(PLATFORM) -C lib clean
+	make -f Makefile.$(PLATFORM) -C fx2loader clean
+	make -f Makefile.$(PLATFORM) -C hxd clean
+	make -f Makefile.$(PLATFORM) -C ucm clean
+	make -f Makefile.$(PLATFORM) -C bulk clean
+	make -C firmware clean
 
 FORCE:
