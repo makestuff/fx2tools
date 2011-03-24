@@ -79,16 +79,11 @@ FX2Status fx2WriteRAM(uint16 vid, uint16 pid, const Buffer *sourceData) {
 		goto cleanupUsb;
 	}
 	byte = 0x00;
-	returnCode = usb_control_msg(
+	usb_control_msg(
 		deviceHandle,
 		(USB_ENDPOINT_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE),
 		0xA0, 0xE600, 0x0000, &byte, 1, 5000
 	);
-	if ( returnCode != 1 ) {
-		snprintf(fx2ErrorMessage, FX2_ERR_MAXLENGTH, "Failed to bring the CPU out of reset - usb_control_msg() failed returnCode %d: %s\n", returnCode, usb_strerror());
-		status = FX2_USBERR;
-		goto cleanupUsb;
-	}
 
 	status = FX2_SUCCESS;
 
